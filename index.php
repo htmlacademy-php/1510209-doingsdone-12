@@ -46,9 +46,9 @@ function get_counts_projects(array $tasks, string $project_name): int {
 
     while($i < count($tasks)) {
         if ($tasks[$i]['category'] === $project_name) {
-            $sum ++;
+            $sum++;
         }
-        $i ++;
+        $i++;
     }
 
     return $sum;
