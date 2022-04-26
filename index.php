@@ -40,6 +40,20 @@ $tasks = [
     ]
 ];
 
+function get_counts_projects(array $tasks, string $project_name): int {
+    $i = 0;
+    $sum = 0;
+
+    while($i < count($tasks)) {
+        if ($tasks[$i]['category'] === $project_name) {
+            $sum++;
+        }
+        $i++;
+    }
+
+    return $sum;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -84,7 +98,7 @@ $tasks = [
                     <?php foreach($projects as $item): ?>
                         <li class="main-navigation__list-item">
                             <a class="main-navigation__list-item-link" href="#"><?= $item ?></a>
-                            <span class="main-navigation__list-item-count">0</span>
+                            <span class="main-navigation__list-item-count"><?= get_counts_projects($tasks, $item) ?></span>
                         </li>
                     <?php endforeach; ?>
                     </ul>
@@ -123,10 +137,12 @@ $tasks = [
 
                 <table class="tasks">
                     
-                <?php foreach($tasks as $task): ?>
-                    <?php if ($show_complete_tasks === 0 && $task['completed'] === true): ?>
-                    <?php continue; ?>
-                    <?php endif; ?>
+                <?php 
+                foreach($tasks as $task) {
+                    if ($show_complete_tasks === 0 && $task['completed'] === true) {
+                        continue;
+                    }
+                ?>
                     
                     <tr class="tasks__item task 
                     <?php if ($task['completed'] === true): ?>
@@ -145,7 +161,7 @@ $tasks = [
                         </td>
                     </tr>
                     
-                <?php endforeach; ?>
+                <?php } ?>
                 </table>
             </main>
         </div>
