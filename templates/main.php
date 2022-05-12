@@ -54,8 +54,6 @@
         <tr class="tasks__item task 
         <?php if ($task['completed'] === true) { ?>
             task--completed
-        <?php } if (importantDate($task['date']) <= 24 && $task['completed'] === false) { ?>
-            task--important
         <?php } ?>
             ">
             
