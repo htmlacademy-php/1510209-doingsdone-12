@@ -3,12 +3,12 @@
 
     <nav class="main-navigation">
         <ul class="main-navigation__list">
-        <?php foreach($projects as $item): ?>
+        <?php foreach($projects as $projectName) { ?>
             <li class="main-navigation__list-item">
-                <a class="main-navigation__list-item-link" href="#"><?= htmlspecialchars($item) ?></a>
-                <span class="main-navigation__list-item-count"><?= get_counts_projects($tasks, $item) ?></span>
+                <a class="main-navigation__list-item-link" href="#"><?= htmlspecialchars($projectName) ?></a>
+                <span class="main-navigation__list-item-count"><?= getCountsProjects($tasks, $projectName) ?></span>
             </li>
-        <?php endforeach; ?>
+        <?php } ?>
         </ul>
     </nav>
 
@@ -33,11 +33,11 @@
         </nav>
 
         <label class="checkbox">
-        <?php if ($show_complete_tasks === 1): ?>
+        <?php if ($show_complete_tasks === 1) { ?>
             <input class="checkbox__input visually-hidden show_completed" type="checkbox" checked>
-        <?php else: ?>
+        <?php } else { ?>
             <input class="checkbox__input visually-hidden show_completed" type="checkbox">
-        <?php endif; ?>
+        <?php } ?>
             <span class="checkbox__text">Показывать выполненные</span>
         </label>
     </div>
@@ -52,10 +52,13 @@
     ?>
                     
         <tr class="tasks__item task 
-        <?php if ($task['completed'] === true): ?>
+        <?php if ($task['completed'] === true) { ?>
             task--completed
-        <?php endif; ?>
+        <?php } if (importantDate($task['date']) <= 24 && $task['completed'] === false) { ?>
+            task--important
+        <?php } ?>
             ">
+            
             <td class="task__select">
                 <label class="checkbox task__checkbox">
                     <input class="checkbox__input visually-hidden" type="checkbox">

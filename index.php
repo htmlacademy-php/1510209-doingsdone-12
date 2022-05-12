@@ -13,7 +13,7 @@ $projects = ['Входящие', 'Учеба', 'Работа', 'Домашние
 $tasks = [
     [
         'task' => 'Собеседование в IT компании',
-        'date' => '01.12.2019',
+        'date' => '15.05.2022',
         'category' => 'Работа',
         'completed' => false
     ],
@@ -49,7 +49,7 @@ $tasks = [
     ]
 ];
 
-function get_counts_projects(array $tasks, string $project_name): int {
+function getCountsProjects(array $tasks, string $project_name): int {
     $i = 0;
     $sum = 0;
 
@@ -63,9 +63,31 @@ function get_counts_projects(array $tasks, string $project_name): int {
     return $sum;
 }
 
-$page_content = include_template('main.php', ['show_complete_tasks' => $show_complete_tasks, 'projects' => $projects, 'tasks' => $tasks]);
-$layout_content = include_template('layout.php', ['content' => $page_content, 'title' => 'Дела в порядке']);
+
+function importantDate($time): int {
+    $cur_date = strtotime(date("Y-m-d H:i:s")); 
+    $task_date = strtotime($time);
+    $diff = floor(($task_date - $cur_date)/3600);
+    
+    return $diff;
+}
+
+$page_content = include_template(
+    'main.php', 
+    [
+        'show_complete_tasks' => $show_complete_tasks, 
+        'projects' => $projects, 
+        'tasks' => $tasks
+    ]
+);
+
+$layout_content = include_template(
+    'layout.php', 
+    [
+        'content' => $page_content, 
+        'title' => 'Дела в порядке'
+    ]
+);
 
 print($layout_content);
 
-?>
