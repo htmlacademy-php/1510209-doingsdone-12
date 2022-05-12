@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 
 require('helpers.php');
 
-$show_complete_tasks = rand(0, 1);
+$showCompleteTasks = rand(0, 1);
 
 $projects = ['Входящие', 'Учеба', 'Работа', 'Домашние дела', 'Авто'];
 
@@ -49,12 +49,12 @@ $tasks = [
     ]
 ];
 
-function getCountsProjects(array $tasks, string $project_name): int {
+function getCountsProjects(array $tasks, string $projectName): int {
     $i = 0;
     $sum = 0;
 
     while($i < count($tasks)) {
-        if ($tasks[$i]['category'] === $project_name) {
+        if ($tasks[$i]['category'] === $projectName) {
             $sum++;
         }
         $i++;
@@ -62,7 +62,6 @@ function getCountsProjects(array $tasks, string $project_name): int {
 
     return $sum;
 }
-
 
 function importantDate($time): int {
     $cur_date = strtotime(date("Y-m-d H:i:s")); 
@@ -75,7 +74,7 @@ function importantDate($time): int {
 $page_content = include_template(
     'main.php', 
     [
-        'show_complete_tasks' => $show_complete_tasks, 
+        'showCompleteTasks' => $showCompleteTasks, 
         'projects' => $projects, 
         'tasks' => $tasks
     ]

@@ -33,7 +33,7 @@
         </nav>
 
         <label class="checkbox">
-        <?php if ($show_complete_tasks === 1) { ?>
+        <?php if ($showCompleteTasks === 1) { ?>
             <input class="checkbox__input visually-hidden show_completed" type="checkbox" checked>
         <?php } else { ?>
             <input class="checkbox__input visually-hidden show_completed" type="checkbox">
@@ -46,7 +46,7 @@
                     
     <?php 
     foreach($tasks as $task) {
-        if ($show_complete_tasks === 0 && $task['completed'] === true) {
+        if ($showCompleteTasks === 0 && $task['completed'] === true) {
             continue;
         }
     ?>
@@ -54,6 +54,8 @@
         <tr class="tasks__item task 
         <?php if ($task['completed'] === true) { ?>
             task--completed
+        <?php } if (importantDate($task['date']) <= 24 && $task['completed'] === false) { ?>
+            task--important
         <?php } ?>
             ">
             
