@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 
 require('helpers.php');
 
-$show_complete_tasks = rand(0, 1);
+$showCompleteTasks = rand(0, 1);
 
 $projects = ['Входящие', 'Учеба', 'Работа', 'Домашние дела', 'Авто'];
 
@@ -19,19 +19,19 @@ $tasks = [
     ],
     [
         'task' => 'Выполнить тестовое задание',
-        'date' => '25.12.2019',
+        'date' => '13.05.2022',
         'category' => 'Работа',
         'completed' => false
     ],
     [
         'task' => 'Сделать задание первого раздела',
-        'date' => '21.12.2019',
+        'date' => '12.05.2022',
         'category' => 'Учеба',
         'completed' => true
     ],
     [
         'task' => 'Встреча с другом',
-        'date' => '22.12.2019',
+        'date' => '14.05.2022',
         'category' => 'Входящие',
         'completed' => false
     ],
@@ -49,33 +49,10 @@ $tasks = [
     ]
 ];
 
-function getCountsProjects(array $tasks, string $project_name): int {
-    $i = 0;
-    $sum = 0;
-
-    while($i < count($tasks)) {
-        if ($tasks[$i]['category'] === $project_name) {
-            $sum++;
-        }
-        $i++;
-    }
-
-    return $sum;
-}
-
-
-function importantDate($time): int {
-    $cur_date = strtotime(date("Y-m-d H:i:s")); 
-    $task_date = strtotime($time);
-    $diff = floor(($task_date - $cur_date)/3600);
-    
-    return $diff;
-}
-
 $page_content = include_template(
     'main.php', 
     [
-        'show_complete_tasks' => $show_complete_tasks, 
+        'showCompleteTasks' => $showCompleteTasks, 
         'projects' => $projects, 
         'tasks' => $tasks
     ]

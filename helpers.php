@@ -142,3 +142,33 @@ function include_template($name, array $data = []) {
 
     return $result;
 }
+
+/**
+* Подсчитывает количество проектов для каждой категории
+*/
+function getCountsProjects(array $tasks, string $projectName): int {
+    $i = 0;
+    $sum = 0;
+
+    while($i < count($tasks)) {
+        if ($tasks[$i]['category'] === $projectName) {
+            $sum++;
+        }
+        $i++;
+    }
+
+    return $sum;
+}
+
+/**
+* Возвращает true в случае, если задача попадает под категорию горящей
+*/
+function importantTask(array $task): bool {
+    $cur_date = strtotime(date("Y-m-d H:i:s")); 
+    $task_date = strtotime($task['date']);
+    $diff = floor(($task_date - $cur_date)/3600);
+    $important = $diff <= 24 && $task['completed'] === false && $task['date'] !== null;
+
+    return $important;
+}
+
