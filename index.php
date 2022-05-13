@@ -13,25 +13,25 @@ $projects = ['Входящие', 'Учеба', 'Работа', 'Домашние
 $tasks = [
     [
         'task' => 'Собеседование в IT компании',
-        'date' => '14.05.2022',
+        'date' => '15.05.2022',
         'category' => 'Работа',
         'completed' => false
     ],
     [
         'task' => 'Выполнить тестовое задание',
-        'date' => '25.12.2019',
+        'date' => '13.05.2022',
         'category' => 'Работа',
         'completed' => false
     ],
     [
         'task' => 'Сделать задание первого раздела',
-        'date' => '21.12.2019',
+        'date' => '12.05.2022',
         'category' => 'Учеба',
         'completed' => true
     ],
     [
         'task' => 'Встреча с другом',
-        'date' => '22.12.2019',
+        'date' => '14.05.2022',
         'category' => 'Входящие',
         'completed' => false
     ],
@@ -48,28 +48,6 @@ $tasks = [
         'completed' => false
     ]
 ];
-
-function getCountsProjects(array $tasks, string $projectName): int {
-    $i = 0;
-    $sum = 0;
-
-    while($i < count($tasks)) {
-        if ($tasks[$i]['category'] === $projectName) {
-            $sum++;
-        }
-        $i++;
-    }
-
-    return $sum;
-}
-
-function importantDate($time): int {
-    $cur_date = strtotime(date("Y-m-d H:i:s")); 
-    $task_date = strtotime($time);
-    $diff = floor(($task_date - $cur_date)/3600);
-    
-    return $diff;
-}
 
 $page_content = include_template(
     'main.php', 
