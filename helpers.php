@@ -143,7 +143,7 @@ function include_template($name, array $data = []) {
     return $result;
 }
 
-/* 
+/**
 * Подсчитывает количество проектов для каждой категории
 */
 function getCountsProjects(array $tasks, string $projectName): int {
@@ -160,22 +160,15 @@ function getCountsProjects(array $tasks, string $projectName): int {
     return $sum;
 }
 
-/* 
-* Высчитывает разницу между датой из задачи и сегодняшней
-*/
-function importantDate($time): int {
-    $cur_date = strtotime(date("Y-m-d H:i:s")); 
-    $task_date = strtotime($time);
-    $diff = floor(($task_date - $cur_date)/3600);
-    
-    return $diff;
-}
-
-/* 
+/**
 * Возвращает true в случае, если задача попадает под категорию горящей
 */
-function importantTask($task): bool {
-    $important = importantDate($task['date']) <= 24 && $task['completed'] === false && $task['date'] !== null;
+function importantTask(array $task): bool {
+    $cur_date = strtotime(date("Y-m-d H:i:s")); 
+    $task_date = strtotime($task['date']);
+    $diff = floor(($task_date - $cur_date)/3600);
+    $important = $diff <= 24 && $task['completed'] === false && $task['date'] !== null;
 
     return $important;
 }
+
