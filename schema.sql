@@ -7,34 +7,33 @@ USE doingsdone;
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     dt_reg TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    email CHAR NOT NULL UNIQUE,
-    name CHAR  NOT NULL,
-    password CHAR  NOT NULL
+    email CHAR(100) NOT NULL UNIQUE,
+    name CHAR(50)  NOT NULL,
+    password CHAR(50)  NOT NULL,
+    CREATE UNIQUE INDEX users_email_unique_index ON users(email);
+    CREATE INDEX user_name_index ON users(name);
 );
-
-CREATE UNIQUE INDEX u_email ON users(email);
-CREATE INDEX user_index ON users(id, dt_reg, name, password);
 
 CREATE TABLE project (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    title CHAR  NOT NULL UNIQUE,
-    name_id INT  NOT NULL
+    title CHAR(20)  NOT NULL UNIQUE,
+    FOREIGN KEY (author) REFERENCES users(id)
+    CREATE UNIQUE INDEX project_title_unique_index ON project(title),
+    CREATE INDEX project_id ON project(id)
 );
-
-CREATE UNIQUE INDEX p_title ON project(title);
-CREATE INDEX project_index ON project(id, name_id);
 
 CREATE TABLE task (
     id INT AUTO_INCREMENT PRIMARY KEY,
     dt_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     status TINYINT DEFAULT 0,
-    title CHAR NOT NULL,
-    file CHAR,
+    title CHAR(20) NOT NULL,
+    file CHAR(100),
     limitation TIMESTAMP,
-    name_id INT  NOT NULL,
-    title_project CHAR  NOT NULL UNIQUE
+    FOREIGN KEY (author) REFERENCES users(id),
+    FOREIGN KEY (project) REFERENCES project(id),
+    CREATE UNIQUE INDEX t_title_project ON task(title_project ),
+    CREATE INDEX task_title_index ON task(title)
 );
 
-CREATE UNIQUE INDEX t_title_project ON task(title_project );
-CREATE INDEX task_index ON task(id, dt_create, status, title, file, limitation, name_id);
+
 
