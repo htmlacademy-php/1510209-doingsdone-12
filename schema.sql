@@ -6,40 +6,39 @@ USE doingsdone;
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    dt_reg TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    email CHAR(100) NOT NULL UNIQUE,
-    name CHAR(50)  NOT NULL,
-    password CHAR(50)  NOT NULL
+    dt_reg TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Дата регистрации',
+    email CHAR(100) NOT NULL UNIQUE COMMENT 'e-mail',
+    name CHAR(50)  NOT NULL COMMENT 'Имя',
+    password CHAR(50)  NOT NULL COMMENT 'Пароль',
+    UNIQUE INDEX users_email_unique_index (email) USING BTREE,
+    INDEX user_name_index (name) USING BTREE
 );
-
-CREATE UNIQUE INDEX users_email_unique_index ON users(email);
-CREATE INDEX user_name_index ON users(NAME);
 
 CREATE TABLE project (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    title CHAR(20)  NOT NULL UNIQUE,
+    title CHAR(20)  NOT NULL UNIQUE COMMENT 'Название',
     author_id INT,
-    FOREIGN KEY (author_id) REFERENCES users(id)
+    FOREIGN KEY (author_id) REFERENCES users(id),
+    UNIQUE INDEX project_title_unique_index (title) USING BTREE,
+    INDEX project_id (id) USING BTREE
 );
-
-CREATE UNIQUE INDEX project_title_unique_index ON project(title);
-CREATE INDEX project_id ON project(id);
 
 CREATE TABLE task (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    dt_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    status TINYINT DEFAULT 0,
-    title CHAR(20) NOT NULL,
-    file CHAR(100),
-    limitation TIMESTAMP,
+    dt_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Дата создания',
+    status TINYINT DEFAULT 0 COMMENT 'Статус',
+    title CHAR(20) NOT NULL COMMENT 'Название',
+    file CHAR(100) COMMENT 'Файл',
+    limitation TIMESTAMP COMMENT 'Срок',
     author_id INT,
     project_id INT,
     FOREIGN KEY (author_id) REFERENCES users(id),
-    FOREIGN KEY (project_id) REFERENCES project(id)
+    FOREIGN KEY (project_id) REFERENCES project(id),
+    UNIQUE INDEX task_title_unique_index (title) USING BTREE,
+    INDEX task_status_index (status) USING BTREE
 );
 
-CREATE UNIQUE INDEX task_title_unique_index ON task(title);
-CREATE INDEX task_status_index ON task(status);
+
 
 
 
