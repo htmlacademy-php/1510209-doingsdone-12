@@ -9,18 +9,21 @@ CREATE TABLE users (
     dt_reg TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     email CHAR(100) NOT NULL UNIQUE,
     name CHAR(50)  NOT NULL,
-    password CHAR(50)  NOT NULL,
-    CREATE UNIQUE INDEX users_email_unique_index ON users(email);
-    CREATE INDEX user_name_index ON users(name);
+    password CHAR(50)  NOT NULL
 );
+
+CREATE UNIQUE INDEX users_email_unique_index ON users(email);
+CREATE INDEX user_name_index ON users(NAME);
 
 CREATE TABLE project (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title CHAR(20)  NOT NULL UNIQUE,
-    FOREIGN KEY (author) REFERENCES users(id)
-    CREATE UNIQUE INDEX project_title_unique_index ON project(title),
-    CREATE INDEX project_id ON project(id)
+    author_id INT,
+    FOREIGN KEY (author_id) REFERENCES users(id)
 );
+
+CREATE UNIQUE INDEX project_title_unique_index ON project(title);
+CREATE INDEX project_id ON project(id);
 
 CREATE TABLE task (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -29,11 +32,14 @@ CREATE TABLE task (
     title CHAR(20) NOT NULL,
     file CHAR(100),
     limitation TIMESTAMP,
-    FOREIGN KEY (author) REFERENCES users(id),
-    FOREIGN KEY (project) REFERENCES project(id),
-    CREATE UNIQUE INDEX t_title_project ON task(title_project ),
-    CREATE INDEX task_title_index ON task(title)
+    author_id INT,
+    project_id INT,
+    FOREIGN KEY (author_id) REFERENCES users(id),
+    FOREIGN KEY (project_id) REFERENCES project(id)
 );
+
+CREATE UNIQUE INDEX task_title_unique_index ON task(title);
+CREATE INDEX task_status_index ON task(status);
 
 
 
