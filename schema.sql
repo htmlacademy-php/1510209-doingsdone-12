@@ -25,7 +25,7 @@ CREATE TABLE project (
 
 CREATE TABLE task (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    dt_create TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Дата создания',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Дата создания',
     status TINYINT DEFAULT 0 COMMENT 'Статус',
     title CHAR(50) NOT NULL COMMENT 'Название',
     file CHAR(100) COMMENT 'Файл',
